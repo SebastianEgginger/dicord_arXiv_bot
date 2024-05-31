@@ -65,7 +65,7 @@ today = datetime.today().strftime('%Y-%m-%d')
 
 all_papers = scrape_arxiv()
 
-for project in [project2, project1]:
+for project in [project1, project2]:
     first_title = f"Good morning! I hope you have a wonderful day!"
     first_message = f"Here are some papers from {today} that contain the keywords: {', '.join(project['keywords'])}."
     post_message(first_title, first_message, project['webhook'])
