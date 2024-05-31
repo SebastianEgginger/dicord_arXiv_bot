@@ -65,7 +65,7 @@ def post_message(title, message, webhook):
         print(response.status_code)
 
 project1 = {'webhook': os.getenv('PROJECT1_WEBHOOK'), 'keywords': ['metrology', 'sensing']}
-project2 = {'webhook': os.getenv('PROJECT2_WEBHOOK'), 'keywords': ['machine learning', 'kernel methods']}
+project2 = {'webhook': os.getenv('PROJECT2_WEBHOOK'), 'keywords': ['machine', 'kernel methods']}
 today = datetime.today().strftime('%Y-%m-%d')
 
 for project in [project1, project2]:
