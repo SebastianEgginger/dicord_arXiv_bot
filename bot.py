@@ -16,7 +16,7 @@ def scrape_arxiv():
 
     return sickle.ListRecords(**params)
 
-def prepare_message(all_papers, keywords):
+def prepare_messages(all_papers, keywords):
 
     messages = []
     titles = []
@@ -43,11 +43,6 @@ def prepare_message(all_papers, keywords):
 
     return titles, messages
 
-def get_papers(keywords):
-    all_papers = scrape_arxiv()
-    messages = prepare_message(all_papers, keywords)
-    return messages
-
 def post_message(title, message, webhook):
 
     
@@ -68,11 +63,13 @@ project1 = {'webhook': os.getenv('PROJECT1_WEBHOOK'), 'keywords': ['metrology', 
 project2 = {'webhook': os.getenv('PROJECT2_WEBHOOK'), 'keywords': ['machine learning', 'kernel methods']}
 today = datetime.today().strftime('%Y-%m-%d')
 
-for project in [project2]:
+all_papers = scrape_arxiv()
+
+for project in [project1, project2]:
     first_title = f"Good morning! I hope you have a wonderful day!"
     first_message = f"Here are some papers from {today} that contain the keywords: {', '.join(project['keywords'])}."
     post_message(first_title, first_message, project['webhook'])
 
-    titles, messages = get_papers(project['keywords'])
+    titles, messages = prepare_messages(all_papers, project['keywords'])
     for title, message in zip(titles, messages):
         post_message(title, message, project['webhook'])
