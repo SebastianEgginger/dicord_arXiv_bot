@@ -14,7 +14,7 @@ def scrape_arxiv():
         'set': 'physics:quant-ph'
     }
 
-    return sickle.ListRecords(**params)
+    return list(sickle.ListRecords(**params))
 
 def prepare_messages(all_papers, keywords):
 
