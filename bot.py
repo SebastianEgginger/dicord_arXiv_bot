@@ -2,7 +2,6 @@ import requests
 import os
 from sickle import Sickle
 from datetime import datetime
-import copy
 
 def scrape_arxiv():
     sickle = Sickle('https://export.arxiv.org/oai2')
@@ -66,11 +65,11 @@ today = datetime.today().strftime('%Y-%m-%d')
 
 all_papers = scrape_arxiv()
 
-for project in [project1, project2]:
+for project in [project2, project1]:
     first_title = f"Good morning! I hope you have a wonderful day!"
     first_message = f"Here are some papers from {today} that contain the keywords: {', '.join(project['keywords'])}."
     post_message(first_title, first_message, project['webhook'])
 
-    titles, messages = prepare_messages(copy.deepcopy(all_papers), project['keywords'])
+    titles, messages = prepare_messages(all_papers, project['keywords'])
     for title, message in zip(titles, messages):
         post_message(title, message, project['webhook'])
