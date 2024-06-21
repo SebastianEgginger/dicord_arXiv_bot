@@ -40,7 +40,9 @@ def prepare_messages(all_papers, keywords):
 
             message = f"Authors: {authors}\n URL: {'https://arxiv.org/abs/'+header.identifier.split(':')[-1]}\n Abstract: {abstract}"
             messages.append(message)
-
+    if len(titles)==0:
+        titles.append('No papers found today')
+        messages.append('No paper was uploaded to ArXiv today that matched any of the keywords.')
     return titles, messages
 
 def post_message(title, message, webhook):
